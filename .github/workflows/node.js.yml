@@ -2,7 +2,7 @@
 name: Node.js CI
 env:
   BROWSER: "chrome"
-  DEVICE: "desktop"
+  DEVICE: "mobile"
   
 
 on:
