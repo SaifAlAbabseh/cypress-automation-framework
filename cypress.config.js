@@ -9,6 +9,12 @@ module.exports = defineConfig({
     supportFile: 'cypress/support/e2e.js',
     scrollBehavior: 'center',
     reporter: 'cypress-mochawesome-reporter',
+    reporterOptions: {
+      reportDir: 'cypress/reports',
+      overwrite: true,
+      html: true,
+      saveJson: true,
+    },
 
     setupNodeEvents(on, config) {
       require('cypress-mochawesome-reporter/plugin')(on);
