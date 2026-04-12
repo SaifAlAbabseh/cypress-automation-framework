@@ -10,7 +10,7 @@ module.exports = defineConfig({
     scrollBehavior: 'center',
     reporter: 'cypress-mochawesome-reporter',
     reporterOptions: {
-      reportDir: 'cypress/reports',
+      reportDir: 'cypress/reports/html',
       overwrite: true,
       html: true,
       saveJson: true,
