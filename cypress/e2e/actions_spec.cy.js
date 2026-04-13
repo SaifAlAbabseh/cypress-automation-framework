@@ -1,4 +1,6 @@
 import { clickLink } from '../support/helpers/main_helpers'
+import { selectors } from '../support/pages/actions_page'
+import testData from '../fixtures/test_data.json'
 
 describe('Actions', () => {
   beforeEach(() => {
@@ -7,16 +9,15 @@ describe('Actions', () => {
   })
   
   it('test type', () => {
-    cy.get('#email1')  
-        .type('test@test.com', { delay: 100 })
+    const email = testData.email;
+    selectors.typeEmail(email)
         .invoke('val')
         .should((value) => {
-          expect(value).to.equal('test@test.com')
+          expect(value).to.equal(email)
         })
   })
 
   it('test canvas', () => {
-    cy.get('#action-canvas')
-        .click(0, 0)
+    selectors.clickOnCanvas(0, 0)
   })
 })

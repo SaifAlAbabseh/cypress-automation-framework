@@ -4,15 +4,13 @@ module.exports = defineConfig({
   allowCypressEnv: false,
   e2e: {
     video: true,
+    videoCompression: 0,
     videosFolder: 'cypress/videos',
     screenshotsFolder: 'cypress/screenshots',
     supportFile: 'cypress/support/e2e.js',
     scrollBehavior: 'center',
     reporter: 'cypress-mochawesome-reporter',
     reporterOptions: {
-      reportDir: 'cypress/reports/html',
-      overwrite: true,
-      html: true,
       saveJson: true,
     },
 

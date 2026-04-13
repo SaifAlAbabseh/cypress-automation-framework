@@ -1,4 +1,6 @@
 import { clickLink } from '../support/helpers/main_helpers'
+import { selectors } from '../support/pages/querying_page'
+import testData from '../fixtures/test_data.json'
 
 describe('Querying', () => {
   beforeEach(() => {
@@ -7,13 +9,12 @@ describe('Querying', () => {
   })
 
   it('gets an element', () => {
-    cy.get('#query-btn').click()
+    selectors.clickBtn()
   })
 
   it('within test', () => {
-    cy.get('form.query-form').wait(200).within(() => {
-      cy.get('input:first').type('test', { delay: 100 })
-      cy.get('input:last').type('test', { delay: 100 })
-    })
+    const firstName = testData.firstName
+    const lastName = testData.lastName
+    selectors.typeInForm(firstName, lastName)
   })
 })
