@@ -9,14 +9,20 @@ module.exports = defineConfig({
     screenshotsFolder: 'cypress/screenshots',
     supportFile: 'cypress/support/e2e.js',
     scrollBehavior: 'center',
-    reporter: 'cypress-mochawesome-reporter',
-    reporterOptions: {
-      saveJson: true,
-    },
 
     setupNodeEvents(on, config) {
-      require('cypress-mochawesome-reporter/plugin')(on);
 
+      // Handle Mochawesome reporter configuration
+      if(config.reporter === 'cypress-mochawesome-reporter') {
+        config.reporterOptions = {
+          saveJson: true,
+        };
+        require('cypress-mochawesome-reporter/plugin')(on);
+      }
+      //////////////////////////////////////////////
+
+      
+      // Set viewport based on the device type specified in environment variables
       const device = config.env.device;
       if (device === 'mobile') {
         config.viewportWidth = 500;
@@ -29,6 +35,8 @@ module.exports = defineConfig({
         config.viewportWidth = 1920;
         config.viewportHeight = 1080;
       }
+      //////////////////////////////////////////////
+
       return config;
     },
   },

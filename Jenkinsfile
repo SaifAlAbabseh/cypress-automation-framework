@@ -29,7 +29,7 @@ pipeline {
         
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                sh 'npm ci'
             }
         }
         
@@ -41,7 +41,7 @@ pipeline {
         
         stage('Run Tests') {
             steps {
-                sh 'npx cypress run --browser ${browser} --env device=${displayView}'
+                sh 'npm run cy:run -- --browser ${browser} --env device=${displayView}'
             }
         }
     }
