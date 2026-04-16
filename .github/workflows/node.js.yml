@@ -33,9 +33,6 @@ jobs:
         MEGA_PASSWORD: ${{ secrets.MEGA_SERVER_PASSWORD }}
       run: ./test_data_exec.sh
 
-    - name: Verify Extracted Data
-      run: ls -la ./cypress/fixtures
-
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
