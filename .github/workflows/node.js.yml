@@ -23,12 +23,22 @@ jobs:
     steps:
     - name: Checkout Repo
       uses: actions/checkout@v4
-    
+
+    - name: Make script executable
+      run: chmod +x test-data-exec.sh
+
+    - name: Fetch Test Data
+      env:
+        MEGA_EMAIL: ${{ secrets.MEGA_SERVER_EMAIL }}
+        MEGA_PASSWORD: ${{ secrets.MEGA_SERVER_PASSWORD }}
+      run: ./test-data-exec.sh
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+
     - run: npm ci
     - run: npx cypress verify
     - run: npm run cy:run -- --browser $BROWSER --env device=$DEVICE
