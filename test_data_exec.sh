@@ -12,11 +12,11 @@ MEGA_EMAIL="${MEGA_EMAIL}"
 MEGA_PASSWORD="${MEGA_PASSWORD}"
 
 # Remote MEGA Path (The path as it looks inside your MEGA drive)
-MEGA_FILE_PATH="/test-data.zip"
+MEGA_FILE_PATH="/test_data.zip"
 
 # Local Paths
 LOCAL_DOWNLOAD_DIR="/tmp/mega_downloads"
-LOCAL_FILE_PATH="$LOCAL_DOWNLOAD_DIR/test-data.zip"
+LOCAL_FILE_PATH="$LOCAL_DOWNLOAD_DIR/test_data.zip"
 TARGET_EXTRACTION_PATH="./cypress/fixtures" # Change to your framework's actual path
 
 # ==========================================
