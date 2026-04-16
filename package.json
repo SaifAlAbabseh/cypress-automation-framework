@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "cy:open": "cypress open",
     "cy:run": "cypress run --config reporter=cypress-mochawesome-reporter",
-    "cy:parallel": "cypress-parallel -s cy:run -t 4 -d cypress/e2e/**/*.cy.js"
+    "cy:run:parallel": "cypress run",
+    "cy:parallel": "cypress-parallel -s cy:run:parallel -t 4 -d cypress/e2e/**/*.cy.js"
   },
   "keywords": [],
   "author": "",

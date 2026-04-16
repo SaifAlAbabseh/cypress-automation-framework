@@ -1,0 +1,108 @@
+import groovy.json.JsonSlurper
+
+pipeline {
+    agent any
+
+    environment {
+        SLACK_CHANNEL = '#automation-jobs'
+        SLACK_CHANNEL_ID = 'C05R1CXD2Q4'
+    }
+    
+    tools {
+        nodejs 'NodeJS'
+    }
+
+    stages {
+        stage('Clean Workspace') {
+            steps {
+                cleanWs()
+            }
+        }
+        
+        stage('Checkout GitHub Repo') {
+            steps {
+                git branch: 'main',
+                    credentialsId: 'cypress-automation-framework',
+                    url: 'https://github.com/SaifAlAbabseh/cypress-automation-framework.git'
+            }
+        }
+        
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm ci'
+            }
+        }
+        
+        stage('Verify Cypress') {
+            steps {
+                sh 'npx cypress verify'
+            }
+        }
+        
+        stage('Run Parallel Tests') {
+            steps {
+                sh 'npm run cy:parallel -- --browser ${browser} --env device=${displayView}'
+            }
+        }
+    }
+
+    post {
+        always {
+            archiveArtifacts artifacts: 'runner-results/**', allowEmptyArchive: true
+            
+            script {
+                
+                    def TOTAL_TESTS = 0
+                    def PASSED_TESTS = 0
+                    def FAILED_TESTS = 0
+                    def PENDING_TESTS = 0
+                    def durationSec = 0
+                    
+                    def jsonFiles = findFiles(glob: 'runner-results/**/*.json')
+                    jsonFiles.each { file ->
+                        def data = readJSON file: file.path
+                        
+                        TOTAL_TESTS += data.tests
+                        PASSED_TESTS += data.passes
+                        FAILED_TESTS += data.failures
+                        PENDING_TESTS += data.pending
+                        durationSec += (data.duration / 1000).setScale(2, BigDecimal.ROUND_HALF_UP)
+                    }
+                    
+                    def isSuccess = (currentBuild.result == null || currentBuild.result == 'SUCCESS')
+                    def jobStatusOverall = isSuccess ? '✅  PASSED JOB ✅' : '❌ FAILED JOB ❌'
+                    def platformTestedOn = params.displayView.toUpperCase()
+                    def browserTestedOn = params.browser.toUpperCase()
+                    
+                    
+                    def slackMessage = """
+    ************************************************************
+                            ${jobStatusOverall}
+    ************************************************************
+    * 💼 Job: ${env.JOB_NAME}
+    * 🔨 Build #: ${env.BUILD_NUMBER}
+    * 🔨 Build Link: <${env.BUILD_URL}|Click here>
+    ************************************************************
+                            📊 Total Tests = ${TOTAL_TESTS}
+                            ⏲️ Test Duration(in Seconds) = ${durationSec}
+    ************************************************************
+    * ✅ PASSED: ${PASSED_TESTS}
+    * ❌ FAILED: ${FAILED_TESTS}
+    * ⏩ PENDING: ${PENDING_TESTS}
+    ************************************************************
+    * 🌐 Browser: ${browserTestedOn}
+    * ⚙️ Platform: ${platformTestedOn}
+    """
+                    
+                    def resultColor = isSuccess ? "good" : "danger"
+                    // Send Slack message
+                    slackSend(
+                        channel:"${env.SLACK_CHANNEL}",
+                        color: resultColor,
+                        message: slackMessage
+                    )
+                
+            }
+        }
+    }
+}
