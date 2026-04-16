@@ -51,8 +51,6 @@ mega-get "$MEGA_FILE_PATH" "$LOCAL_DOWNLOAD_DIR"
 # ==========================================
 # 4. EXTRACT THE FILE
 # ==========================================
-echo "Extracting files to $TARGET_EXTRACTION_PATH..."
-mkdir -p "$TARGET_EXTRACTION_PATH"
 
 # -o overwrites existing files without prompting
 # -q makes the extraction quiet (less console spam)
