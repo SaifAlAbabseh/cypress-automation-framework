@@ -17,7 +17,7 @@ MEGA_FILE_PATH="/test_data.zip"
 # Local Paths
 LOCAL_DOWNLOAD_DIR="/tmp/mega_downloads"
 LOCAL_FILE_PATH="$LOCAL_DOWNLOAD_DIR/test_data.zip"
-TARGET_EXTRACTION_PATH="./cypress/fixtures" # Change to your framework's actual path
+TARGET_EXTRACTION_PATH="./cypress/fixtures/test_data" # Change to your framework's actual path
 
 # ==========================================
 # 1. INSTALL MEGAcmd
