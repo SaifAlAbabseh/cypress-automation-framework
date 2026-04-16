@@ -1,5 +1,5 @@
 import { clickLink } from '../support/helpers/main_helpers'
-import testData from '../fixtures/test_data.json'
+import testData from '../fixtures/test_data/test_data.json'
 import actionsPage from '../support/pages/actions_page'
 
 describe('Actions', () => {

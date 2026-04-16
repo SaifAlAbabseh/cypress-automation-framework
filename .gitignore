@@ -6,6 +6,7 @@ cypress/videos/
 cypress/screenshots/
 cypress/reports/
 cypress/parallel-weights.json
+cypress/fixtures/test_data/
 
 runner-results/
 

@@ -13,11 +13,9 @@
   "author": "",
   "license": "ISC",
   "type": "commonjs",
-  "devDependencies": {
+  "dependencies": {
+    "cypress-parallel": "^0.15.0",
     "cypress": "^15.13.1",
     "cypress-mochawesome-reporter": "^4.0.2"
-  },
-  "dependencies": {
-    "cypress-parallel": "^0.15.0"
   }
 }
