@@ -22,8 +22,23 @@ pipeline {
         stage('Checkout GitHub Repo') {
             steps {
                 git branch: 'main',
-                    credentialsId: 'cypress-automation-framework',
                     url: 'https://github.com/SaifAlAbabseh/cypress-automation-framework.git'
+            }
+        }
+
+        stage('Initilize Test Data Files') {
+            steps {
+                // make shell script file executable
+                sh 'chmod +x ./test_data_exec.sh'
+                
+                // Fetch test data
+                withCredentials([usernamePassword(
+                    credentialsId: 'mega-auth-credentials', 
+                    usernameVariable: 'MEGA_EMAIL', 
+                    passwordVariable: 'MEGA_PASSWORD'
+                )]) {
+                    sh 'SERVER="JENKINS" ./test_data_exec.sh'
+                }
             }
         }
         
