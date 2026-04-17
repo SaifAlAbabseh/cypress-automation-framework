@@ -10,6 +10,7 @@ set -e
 # from your CI/CD secrets manager, do not hardcode them.
 MEGA_EMAIL="${MEGA_EMAIL}"
 MEGA_PASSWORD="${MEGA_PASSWORD}"
+SERVER="${SERVER}"
 
 # Remote MEGA Path (The path as it looks inside your MEGA drive)
 MEGA_FILE_PATH="/test_data.zip"
@@ -23,8 +24,13 @@ TARGET_EXTRACTION_PATH="./cypress/fixtures/test_data" # Change to your framework
 # 1. INSTALL MEGAcmd
 # ==========================================
 echo "Installing prerequisites (wget, unzip)..."
-apt-get update -qq
-apt-get install -y wget unzip apt-transport-https gnupg2 curl
+if [ "$SERVER" = "GITHUB" ]; then
+  sudo apt-get update -qq
+  sudo apt-get install -y wget unzip apt-transport-https gnupg2 curl
+elif [ "$SERVER" = "JENKINS" ]; then
+  apt-get update -qq
+  apt-get install -y wget unzip apt-transport-https gnupg2 curl
+fi
 
 echo "Downloading and installing MEGAcmd..."
 # Note: This uses the Ubuntu 22.04 package. Adjust the URL if using a different OS version.
