@@ -35,7 +35,11 @@ fi
 echo "Downloading and installing MEGAcmd..."
 # Note: This uses the Ubuntu 22.04 package. Adjust the URL if using a different OS version.
 wget -q "https://mega.nz/linux/repo/xUbuntu_22.04/amd64/megacmd-xUbuntu_22.04_amd64.deb" -O megacmd.deb
-apt-get install -y "$PWD/megacmd.deb"
+if [ "$SERVER" = "GITHUB" ]; then
+  sudo apt-get install -y "$PWD/megacmd.deb"
+elif [ "$SERVER" = "JENKINS" ]; then
+  apt-get install -y "$PWD/megacmd.deb"
+fi
 rm megacmd.deb # Clean up installer
 
 # ==========================================

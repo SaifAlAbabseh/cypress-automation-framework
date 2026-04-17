@@ -31,7 +31,7 @@ jobs:
       env:
         MEGA_EMAIL: ${{ secrets.MEGA_SERVER_EMAIL }}
         MEGA_PASSWORD: ${{ secrets.MEGA_SERVER_PASSWORD }}
-        SERVER: GITHUB
+        SERVER: "GITHUB"
       run: ./test_data_exec.sh
 
     - name: Use Node.js ${{ matrix.node-version }}
