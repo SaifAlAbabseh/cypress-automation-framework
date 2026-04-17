@@ -23,13 +23,13 @@ TARGET_EXTRACTION_PATH="./cypress/fixtures/test_data" # Change to your framework
 # 1. INSTALL MEGAcmd
 # ==========================================
 echo "Installing prerequisites (wget, unzip)..."
-sudo apt-get update -qq
-sudo apt-get install -y wget unzip apt-transport-https gnupg2 curl
+apt-get update -qq
+apt-get install -y wget unzip apt-transport-https gnupg2 curl
 
 echo "Downloading and installing MEGAcmd..."
 # Note: This uses the Ubuntu 22.04 package. Adjust the URL if using a different OS version.
 wget -q "https://mega.nz/linux/repo/xUbuntu_22.04/amd64/megacmd-xUbuntu_22.04_amd64.deb" -O megacmd.deb
-sudo apt-get install -y "$PWD/megacmd.deb"
+apt-get install -y "$PWD/megacmd.deb"
 rm megacmd.deb # Clean up installer
 
 # ==========================================
