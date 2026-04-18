@@ -19,6 +19,18 @@ pipeline {
             }
         }
         
+        stage('Install Git') {
+            steps {
+                sh 'sudo apt update && sudo apt install git -y'
+            }
+        }
+        
+        stage('Install Xvfb') {
+            steps {
+                sh 'sudo apt-get update && sudo apt-get install -y xvfb'
+            }
+        }
+        
         stage('Checkout GitHub Repo') {
             steps {
                 git branch: 'main',
@@ -88,11 +100,11 @@ pipeline {
     ************************************************************
                             ${jobStatusOverall}
     ************************************************************
-    * 💼 Job: ${env.JOB_NAME}
-    * 🔨 Build #: ${env.BUILD_NUMBER}
-    * 🔨 Build Link: <${env.BUILD_URL}|Click here>
+    *  Job: ${env.JOB_NAME}
+    *  Build #: ${env.BUILD_NUMBER}
+    *  Build Link: <${env.BUILD_URL}|Click here>
     ************************************************************
-                            📊 Total Tests = ${TOTAL_TESTS}
+                             Total Tests = ${TOTAL_TESTS}
                             ⏲️ Test Duration(in Seconds) = ${durationSec}
     ************************************************************
     * ✅ PASSED: ${PASSED_TESTS}
@@ -100,9 +112,9 @@ pipeline {
     * ⏩ SKIPPED: ${SKIPPED_TESTS}
     * ⏩ PENDING: ${PENDING_TESTS}
     ************************************************************
-    * 🌐 Browser: ${browserTestedOn}
+    *  Browser: ${browserTestedOn}
     * ⚙️ Platform: ${platformTestedOn}
-    * 📒 Report: <${reportLink}|HTML Report>
+    *  Report: <${reportLink}|HTML Report>
     """
                     
                     def resultColor = isSuccess ? "good" : "danger"
