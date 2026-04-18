@@ -12,6 +12,10 @@ MEGA_EMAIL="${MEGA_EMAIL}"
 MEGA_PASSWORD="${MEGA_PASSWORD}"
 SERVER="${SERVER}"
 
+echo "MEGA_EMAIL: $MEGA_EMAIL"
+echo "MEGA_PASSWORD: $MEGA_PASSWORD"
+echo "SERVER: $SERVER"
+
 # Remote MEGA Path (The path as it looks inside your MEGA drive)
 MEGA_FILE_PATH="/test_data.zip"
 
