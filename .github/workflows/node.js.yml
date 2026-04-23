@@ -45,6 +45,7 @@ jobs:
     - run: npm run cy:run -- --browser $BROWSER --env device=$DEVICE
 
     - name: Upload Cypress HTML Report
+      if: always()
       uses: actions/upload-artifact@v4
       with:
         name: cypress-html-report
