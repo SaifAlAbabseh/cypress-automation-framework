@@ -2,7 +2,7 @@ import '../commands';
 
 
 class MainPage {
-    
+
     loadingBox = '#loading_box_outer_id';
     addNewFriendLink = '#addLink';
     editProfileLink = '#editLink';
@@ -111,7 +111,7 @@ class MainPage {
         const whichActionXpath = `//div[@class='friendRow']/a[@href='${whichOperation}/?${whichOperationText}=${friendUsername}']`;
         return cy.xpath(whichActionXpath);
     }
-    
+
     removeFriendIfExists(friendUsername) {
         this.returnActualFriendRowElement('Delete_Friend', friendUsername).click();
     }
@@ -180,6 +180,18 @@ class MainPage {
 
     clickOnMobileViewMenuClosebutton() {
         this.getMobileViewMenuClosebutton.click();
+    }
+
+    handleMobileMenu(menuOperation) {
+        // true: open menu, false: close menu, null/undefined: do nothing
+        cy.get('body').then($body => {
+            if ($body.find(this.menuIcon).is(':visible')) {
+                if (menuOperation)
+                    this.clickOnMenuIcon();
+                else
+                    this.clickOnMobileViewMenuClosebutton();
+            }
+        });
     }
 }
 

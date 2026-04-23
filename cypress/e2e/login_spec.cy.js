@@ -15,6 +15,7 @@ describe('Login Test Suite', () => {
         loginPage.typeInUsernameInputField(username)
         loginPage.typeInPasswordInputField(password)
         loginPage.clickOnLoginButton()
+        mainPage.handleMobileMenu(true)
         mainPage.verifyUsername(username)
     })
 
@@ -22,6 +23,7 @@ describe('Login Test Suite', () => {
         loginPage.clickOnSignupSwitcherButton()
         loginPage.clickOnLoginSwitcherButton()
         loginPage.login(username, password)
+        mainPage.handleMobileMenu(true)
         mainPage.verifyUsername(username)
     })
 })
