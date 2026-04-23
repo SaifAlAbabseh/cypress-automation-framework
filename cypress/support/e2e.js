@@ -1,8 +1,9 @@
 import './commands';
 import 'cypress-mochawesome-reporter/register';
+import 'cypress-xpath';
 
 const env = {
-    baseUrl: 'https://example.cypress.io'
+    baseUrl: 'https://all-chat.alwaysdata.net/'
 };
 
 beforeEach(() => {

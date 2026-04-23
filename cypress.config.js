@@ -3,6 +3,7 @@ const { defineConfig } = require("cypress");
 module.exports = defineConfig({
   allowCypressEnv: false,
   e2e: {
+    defaultCommandTimeout: 10000,
     video: true,
     videoCompression: 0,
     videosFolder: 'cypress/videos',
