@@ -17,9 +17,9 @@ describe('Add Friend Test Suite', () => {
 
     it('User Searches And Sends Friend Request To Friend', () => {
         loginPage.login(username, password)
+        mainPage.doOperationOnFriendRowIfExists('Delete_Friend', friendUsername)
         mainPage.handleMobileMenu(true)
         mainPage.verifyUsername(username)
-        mainPage.doOperationOnFriendRowIfExists('Delete_Friend', friendUsername)
         mainPage.clickOnAddNewFriendLink()
         addFriendPage.typeUsername(friendUsername)
         addFriendPage.verifySuggestionBox(friendUsername)
