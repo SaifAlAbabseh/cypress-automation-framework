@@ -22,9 +22,7 @@ describe('Add Friend Test Suite', () => {
         mainPage.verifyUsername(username)
         mainPage.clickOnAddNewFriendLink()
         addFriendPage.typeUsername(friendUsername)
-            .then(() => {
-                addFriendPage.verifySuggestionBox(friendUsername)
-            })
+        addFriendPage.verifySuggestionBox(friendUsername)
         addFriendPage.clickAddFriendButton()
         addFriendPage.returnAddNewFriendResult().should('include', 'Sent Friend Request')
         verifyFriendRequestEmail(username)

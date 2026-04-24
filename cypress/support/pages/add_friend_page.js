@@ -13,7 +13,7 @@ class AddFriendPage {
     get getAddFriendLabel() { return cy.get(this.addFriendLabel); } 
 
     typeUsername(username) {
-        return this.getFriendUsernameField.should('be.visible').type(username);
+        return this.getFriendUsernameField.should('be.visible').type(username, { delay: 0 });
     }
 
     verifySuggestionBox(username) {
