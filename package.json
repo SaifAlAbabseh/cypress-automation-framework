@@ -18,6 +18,8 @@
     "cypress": "^15.13.1",
     "cypress-mochawesome-reporter": "^4.0.2",
     "cypress-parallel": "^0.15.0",
-    "cypress-xpath": "^2.0.1"
+    "cypress-xpath": "^2.0.1",
+    "imap-simple": "^5.1.0",
+    "mailparser": "^3.9.8"
   }
 }

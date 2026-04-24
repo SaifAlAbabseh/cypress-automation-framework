@@ -1,6 +1,8 @@
 const { defineConfig } = require("cypress");
+const GmailClient = require('./cypress/support/helpers/gmail_client');
+import gmail_data from './cypress/fixtures/test_data/secret_data/gmail_client_data.json';
 
-module.exports = defineConfig({
+module.exports = defineConfig({ 
   allowCypressEnv: false,
   e2e: {
     defaultCommandTimeout: 10000,
@@ -12,6 +14,21 @@ module.exports = defineConfig({
     scrollBehavior: 'center',
 
     setupNodeEvents(on, config) {
+
+      const gmail = new GmailClient({
+        user: gmail_data.email,
+        password: gmail_data.app_password,
+      });
+
+      on('task', {
+        getLatestEmail() {
+          return gmail.getLatestEmail();
+        },
+
+        getEmailBySubject(subject) {
+          return gmail.findEmailBySubject(subject);
+        }
+      });
 
       // Handle Mochawesome reporter configuration
       if(config.reporter === 'cypress-mochawesome-reporter') {

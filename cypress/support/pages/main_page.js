@@ -9,12 +9,11 @@ class MainPage {
     usernameLabel = "//div[@class='profileBox']/h2[@style='color:yellow']";
     menuIcon = '#m';
     friendsBox = '#innerData';
-    addNewFriendButton = '#addLink';
     logoutButton = '//button[contains(., "Logout")]';
     notificationsButton = '//button[@title="Notifications"]';
     notificationsBox = '//div[@id="notificationsBox"]';
-    friendRequestAcceptButton = '//button[@name="acceptFriendRequestButton"]';
-    friendRequestRejectButton = '//button[@name="rejectFriendRequestButton"]';
+    friendRequestAcceptButton = 'input[name="acceptFriendRequestButton"]';
+    friendRequestRejectButton = 'input[name="rejectFriendRequestButton"]';
     editProfileButton = '#editLink';
     createGroupButton = '#create_group_button';
     createGroupNameField = '#group_name';
@@ -47,10 +46,6 @@ class MainPage {
 
     get getFriendsBox() {
         return cy.get(this.friendsBox);
-    }
-
-    get getAddNewFriendButton() {
-        return cy.get(this.addNewFriendButton);
     }
 
     get getLogoutButton() {
@@ -106,26 +101,24 @@ class MainPage {
         this.getUsernameLabel.should('be.visible').and('include.text', username);
     }
 
-    returnActualFriendRowElement(whichOperation, friendUsername) {
-        const whichOperationText = whichOperation.equals('Chat') ? 'with' : 'name';
-        const whichActionXpath = `//div[@class='friendRow']/a[@href='${whichOperation}/?${whichOperationText}=${friendUsername}']`;
-        return cy.xpath(whichActionXpath);
-    }
-
-    removeFriendIfExists(friendUsername) {
-        this.returnActualFriendRowElement('Delete_Friend', friendUsername).click();
-    }
-
-    clickChatForFriend(friendUsername) {
-        this.returnActualFriendRowElement('Chat', friendUsername).click();
+    doOperationOnFriendRowIfExists(whichOperation, friendUsername) {
+        const whichOperationText = whichOperation === 'Chat' ? 'with' : 'name';
+        const whichActionCss = `div[class='friendRow'] > a[href='${whichOperation}/?${whichOperationText}=${friendUsername}']`;
+        cy.get('body').then($body => {
+            const friendRow = $body.find(whichActionCss);
+            if (friendRow.length) {
+                cy.wrap(friendRow).click();
+            }
+        });
     }
 
     verifyNewFriend(friendUsername) {
-        this.returnActualFriendRowElement('Chat', friendUsername).should('exist');
+        const friendRowCss = `div[class='friendRow'] > a[href='Chat/?with=${friendUsername}']`;
+        cy.get(friendRowCss).should('exist').and('be.visible');
     }
 
-    clickOnAddNewFriendButton() {
-        this.getAddNewFriendButton.click();
+    clickOnAddNewFriendLink() {
+        this.getAddNewFriendLink.click();
     }
 
     clickOnMenuIcon() {
@@ -141,11 +134,11 @@ class MainPage {
     }
 
     acceptFriendRequestFrom(requesterUsername) {
-        cy.xpath(this.friendRowElement.replace('{{text}}', requesterUsername)).xpath(this.friendRequestAcceptButton).click();
+        cy.xpath(this.friendRowElement.replace('{{text}}', requesterUsername)).find(this.friendRequestAcceptButton).click();
     }
 
     rejectFriendRequestFrom(requesterUsername) {
-        cy.xpath(this.friendRowElement.replace('{{text}}', requesterUsername)).xpath(this.friendRequestRejectButton).click();
+        cy.xpath(this.friendRowElement.replace('{{text}}', requesterUsername)).find(this.friendRequestRejectButton).click();
     }
 
     clickOnEditProfileButton() {
