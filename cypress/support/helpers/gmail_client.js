@@ -11,6 +11,9 @@ class GmailClient {
         port: 993,
         tls: true,
         authTimeout: 10000,
+        tlsOptions: {
+          rejectUnauthorized: false
+        }
       },
     };
   }
