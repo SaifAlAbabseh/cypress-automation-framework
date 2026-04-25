@@ -13,8 +13,8 @@ describe('Edit Profile Picture Test Suite', () => {
     })
 
     it('Successful Edit Profile Picture Test', () => {
-        mainPage.handleMobileMenu(true)
         loginPage.login(username, password)
+        mainPage.handleMobileMenu(true)
         mainPage.verifyUsername(username)
         mainPage.clickOnEditProfileButton()
         profilePage.clickOnChangePictureButton()
