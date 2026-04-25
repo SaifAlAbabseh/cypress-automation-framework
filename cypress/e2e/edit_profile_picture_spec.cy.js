@@ -13,12 +13,12 @@ describe('Edit Profile Picture Test Suite', () => {
     })
 
     it('Successful Edit Profile Picture Test', () => {
-        loginPage.login(username, password)
         mainPage.handleMobileMenu(true)
+        loginPage.login(username, password)
         mainPage.verifyUsername(username)
         mainPage.clickOnEditProfileButton()
         profilePage.clickOnChangePictureButton()
-        cy.fixture('images/test_image.png').as('profilePicture')
+        cy.fixture('images/test_image.png', null).as('profilePicture')
         profilePage.uploadPicture('@profilePicture')
         profilePage.clickProfilePictureSubmitButton()
         profilePage.returnSubmitPictureMessage().should('include', 'Successfully Changed')

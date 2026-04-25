@@ -2,7 +2,7 @@ const { defineConfig } = require("cypress");
 const GmailClient = require('./cypress/support/helpers/gmail_client');
 import gmail_data from './cypress/fixtures/test_data/secret_data/gmail_client_data.json';
 
-module.exports = defineConfig({ 
+module.exports = defineConfig({
   allowCypressEnv: false,
   e2e: {
     defaultCommandTimeout: 10000,
@@ -15,23 +15,21 @@ module.exports = defineConfig({
 
     setupNodeEvents(on, config) {
 
+      // Gmail Client Configuration
       const gmail = new GmailClient({
         user: gmail_data.email,
         password: gmail_data.app_password,
       });
-
       on('task', {
-        getLatestEmail() {
-          return gmail.getLatestEmail();
-        },
-
-        getEmailBySubject(subject) {
-          return gmail.findEmailBySubject(subject);
+        getEmailBySubject({ subject, timeout, interval }) {
+          return gmail.findEmailBySubject(subject, { timeout, interval });
         }
       });
+      //////////////////////////////////////////////
+
 
       // Handle Mochawesome reporter configuration
-      if(config.reporter === 'cypress-mochawesome-reporter') {
+      if (config.reporter === 'cypress-mochawesome-reporter') {
         config.reporterOptions = {
           saveJson: true,
         };
@@ -39,7 +37,7 @@ module.exports = defineConfig({
       }
       //////////////////////////////////////////////
 
-      
+
       // Set viewport based on the device type specified in environment variables
       const device = config.env.device;
       if (device === 'mobile') {
@@ -54,6 +52,7 @@ module.exports = defineConfig({
         config.viewportHeight = 1080;
       }
       //////////////////////////////////////////////
+      
 
       return config;
     },
