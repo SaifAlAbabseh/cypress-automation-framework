@@ -1,8 +1,8 @@
-import testData from '../fixtures/test_data/all_chat_test_data.json'
-import loginPage from '../support/pages/login_page'
-import mainPage from '../support/pages/main_page'
-import addFriendPage from '../support/pages/add_friend_page'
-import { verifyFriendRequestEmail } from '../support/helpers/main_helpers'
+import testData from '../../fixtures/test_data/all_chat_test_data.json'
+import loginPage from '../../support/pages/all_chat_project/login_page'
+import mainPage from '../../support/pages/all_chat_project/main_page'
+import addFriendPage from '../../support/pages/all_chat_project/add_friend_page'
+import { verifyFriendRequestEmail } from '../../support/helpers/main_helpers'
 
 const username = testData.username
 const password = testData.password

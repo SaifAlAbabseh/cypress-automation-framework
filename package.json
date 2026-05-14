@@ -6,9 +6,19 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "cy:open": "cypress open",
-    "cy:run": "cypress run --config reporter=cypress-mochawesome-reporter",
     "cy:run:parallel": "cypress run",
-    "cy:parallel": "cypress-parallel -s cy:run:parallel -t 4 -d cypress/e2e/**/*.cy.js"
+    "cy:run:helper": "cypress run --config reporter=cypress-mochawesome-reporter",
+    "cy:parallel:helper": "cypress-parallel -s cy:run:parallel -t 4 -d",
+
+    
+    
+    "cy:run:all_chat_project": "npm run cy:run:helper -- --spec cypress/e2e/all_chat_project/**/*.cy.js",
+    "cy:parallel:all_chat_project": "npm run cy:parallel:helper -- cypress/e2e/all_chat_project/**/*.cy.js",
+
+    "cy:run:other_project": "npm run cy:run:helper -- --spec cypress/e2e/other_project/**/*.cy.js",
+    "cy:parallel:other_project": "npm run cy:parallel:helper -- cypress/e2e/other_project/**/*.cy.js"
+
+
   },
   "keywords": [],
   "author": "",
