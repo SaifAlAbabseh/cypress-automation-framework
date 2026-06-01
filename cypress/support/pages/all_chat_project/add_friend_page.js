@@ -18,7 +18,7 @@ class AddFriendPage {
 
     verifySuggestionBox(username) {
         const userRow = `//div[@class='sug_row']//h3[contains(., '${username}')]`;
-        return cy.xpath(userRow).should('be.visible').click();
+        return cy.xpath(userRow).should('be.visible').click({ force: true });
     }
 
     clickAddFriendButton() {

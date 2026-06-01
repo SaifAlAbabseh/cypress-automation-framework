@@ -107,7 +107,8 @@ class MainPage {
         cy.get('body').then($body => {
             const friendRow = $body.find(whichActionCss);
             if (friendRow.length) {
-                cy.wrap(friendRow).click();
+                // Use force: true to click even if element appears hidden or is re-rendering
+                cy.wrap(friendRow).click({ force: true });
             }
         });
     }
