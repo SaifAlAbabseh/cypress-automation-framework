@@ -3,7 +3,7 @@ import 'cypress-mochawesome-reporter/register';
 import 'cypress-xpath';
 
 const projectBaseUrls = {
-  all_chat_project: 'http://localhost/All-Chat-web-app/',
+  all_chat_project: 'https://all-chat.alwaysdata.net/',
   other_project: 'https://your-other-project-url.com/' // Update with actual URL
 };
 
