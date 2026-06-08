@@ -7,14 +7,16 @@ class GroupChatPage {
     pictureField = '#picField';
     pictureChangeButton = 'name:changePicButton';
     peopleAddButton = '#add_member_button';
-    destroyGroupButton = '//a[text()="Destroy Group"]';
+    destroyGroupButton = 'button[onclick="openDestroyModal()"]';
+    confirmDestructionButton = '#confirmDestroyBtn';
 
     get getGroupSettingsButton() { return cy.xpath(this.groupSettingsButton); }
     get getEditPictureButton() { return cy.xpath(this.editPictureButton); }
     get getPictureField() { return cy.get(this.pictureField); }
     get getPictureChangeButton() { return cy.get(this.pictureChangeButton); }
     get getPeopleAddButton() { return cy.get(this.peopleAddButton); }
-    get getDestroyGroupButton() { return cy.xpath(this.destroyGroupButton); }
+    get getDestroyGroupButton() { return cy.get(this.destroyGroupButton); }
+    get getConfirmDestructionButton() { return cy.get(this.confirmDestructionButton); }
 
     clickOnGroupSettingsButton() {
         return this.getGroupSettingsButton.click();
@@ -48,6 +50,10 @@ class GroupChatPage {
 
     clickOnDestroyGroupButton() {
         return this.getDestroyGroupButton.should('be.visible').click();
+    }
+
+    confirmGroupDestruction() {
+        return this.getConfirmDestructionButton.should('be.visible').click();
     }
 
 }

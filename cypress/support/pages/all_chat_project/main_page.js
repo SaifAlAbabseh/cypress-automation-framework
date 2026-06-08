@@ -6,7 +6,7 @@ class MainPage {
     loadingBox = '#loading_box_outer_id';
     addNewFriendLink = '#addLink';
     editProfileLink = '#editLink';
-    usernameLabel = "//div[@class='profileBox']/h2[@style='color:yellow']";
+    usernameLabel = "div.profileBox  h2.user-card-name";
     menuIcon = '#m';
     friendsBox = '#innerData';
     logoutButton = '//button[contains(., "Logout")]';
@@ -16,10 +16,10 @@ class MainPage {
     friendRequestRejectButton = 'input[name="rejectFriendRequestButton"]';
     editProfileButton = '#editLink';
     createGroupButton = '#create_group_button';
-    createGroupNameField = '#group_name';
+    createGroupNameField = '[name="group_name"]';
     createGroupPictureField = '#picField';
-    createGroupSubmitButton = '#create_group_button';
-    groupEnterButton = '//div[@class="groupRow"]/a[starts-with(@href, "Group/?group_id=")]';
+    createGroupSubmitButton = '[name="create_group_button"]';
+    groupEnterButton = '[title="{{text}}"] > .bubble-btn-container > .bubble-btn.chat';
     mobileViewMenuClosebutton = '#exit_menu_button';
     friendRowElement = `//table//tr[td[1]/h4[contains(., '{{text}}')]]`;
     groupRowByName = `//div[@class='groupRow']/h2[text()='{{text}}']`;
@@ -37,7 +37,7 @@ class MainPage {
     }
 
     get getUsernameLabel() {
-        return cy.xpath(this.usernameLabel);
+        return cy.get(this.usernameLabel);
     }
 
     get getMenuIcon() {
@@ -88,8 +88,8 @@ class MainPage {
         return cy.get(this.createGroupSubmitButton);
     }
 
-    get getGroupEnterButton() {
-        return cy.xpath(this.groupEnterButton);
+    getGroupEnterButton(groupName) {
+        return cy.get(this.groupEnterButton.replace('{{text}}', groupName));
     }
 
     get getMobileViewMenuClosebutton() {
@@ -160,6 +160,9 @@ class MainPage {
     }
 
     verifyGroupHasBeenCreated(groupName) {
+        cy.on('window:alert', (alertText) => {
+            expect(alertText).to.equal(`Successfully created group: ${groupName}`)
+        })
         cy.xpath(this.groupRowByName.replace('{{text}}', groupName)).should('exist');
     }
 
@@ -168,8 +171,7 @@ class MainPage {
     }
 
     clickOnGroupEnterButton(groupName) {
-        const groupRow = `//div[@id='groupsInnerData']/div[h2[text()='${groupName}']]`;
-        cy.xpath(groupRow).xpath(this.groupEnterButton).click();
+        this.getGroupEnterButton(groupName).click();
     }
 
     clickOnMobileViewMenuClosebutton() {

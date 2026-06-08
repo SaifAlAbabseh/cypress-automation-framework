@@ -9,10 +9,12 @@
     "cy:run:helper": "cypress run --config reporter=cypress-mochawesome-reporter",
     
     "cy:run:all_chat_project": "npm run cy:run:helper -- --expose projectName=all_chat_project --spec cypress/e2e/all_chat_project/**/*.cy.js",
+    "cy:run:ui:all_chat_project": "cypress open --config reporter=cypress-mochawesome-reporter --expose projectName=all_chat_project",
     "cy:parallel:helper:all_chat_project": "cypress run --expose projectName=all_chat_project",
     "cy:run:parallel:all_chat_project": "cypress-parallel -s cy:parallel:helper:all_chat_project -t 4 -d cypress/e2e/all_chat_project/**/*.cy.js",
 
     "cy:run:other_project": "npm run cy:run:helper -- --expose projectName=other_project --spec cypress/e2e/other_project/**/*.cy.js",
+    "cy:run:ui:other_project": "cypress open --config reporter=cypress-mochawesome-reporter --expose projectName=other_project",
     "cy:parallel:helper:other_project": "cypress run --expose projectName=other_project",
     "cy:run:parallel:other_project": "cypress-parallel -s cy:parallel:helper:other_project -t 4 -d cypress/e2e/other_project/**/*.cy.js"
 
