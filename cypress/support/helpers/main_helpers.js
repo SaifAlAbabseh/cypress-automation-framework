@@ -19,9 +19,9 @@ export const verifyFriendRequestEmail = (friendUsername) => {
           missingContents.push(text);
         }
       });
-      
+
       expect(
-        missingContents.length, 
+        missingContents.length,
         `Friend request email HTML is missing the following contents:\n- ${missingContents.join('\n- ')}\n`
       ).to.equal(0);
     });
@@ -35,4 +35,30 @@ export const generateRandomString = (stringLength) => {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
   return result;
+}
+
+export const getOTPFromEmail = (action) => {
+  const emailsSubject = {
+    signup: emails_data.signup_subject,
+    login: emails_data.login_subject
+  }
+
+  cy.task('getEmailBySubject', {
+    subject: emailsSubject[action],
+    timeout: 20000,
+    interval: 3000,
+  })
+    .then((email) => {
+      const otpPattern = /<div[^>]*id=["']verification_code["'][^>]*>([\s\S]*?)<\/div>/i;
+      const match = email.html.match(otpPattern);
+      const otp = match ? match[1].trim() : null;
+
+      return otp;
+    })
+    .then((otp) => {
+      expect(otp, 'OTP is null').to.not.be.null;
+      cy.log(`OTP: ${otp}`);
+
+      return otp;
+    });
 }

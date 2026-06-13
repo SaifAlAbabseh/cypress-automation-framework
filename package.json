@@ -6,17 +6,30 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "cy:open": "cypress open",
-    "cy:run:helper": "cypress run --config reporter=cypress-mochawesome-reporter",
-    
-    "cy:run:all_chat_project": "npm run cy:run:helper -- --expose projectName=all_chat_project --spec cypress/e2e/all_chat_project/**/*.cy.js",
-    "cy:run:ui:all_chat_project": "cypress open --config reporter=cypress-mochawesome-reporter --expose projectName=all_chat_project",
-    "cy:parallel:helper:all_chat_project": "cypress run --expose projectName=all_chat_project",
-    "cy:run:parallel:all_chat_project": "cypress-parallel -s cy:parallel:helper:all_chat_project -t 4 -d cypress/e2e/all_chat_project/**/*.cy.js",
+    "cy:run:helper": "cypress run --config reporter=cypress-mochawesome-reporter", 
 
-    "cy:run:other_project": "npm run cy:run:helper -- --expose projectName=other_project --spec cypress/e2e/other_project/**/*.cy.js",
-    "cy:run:ui:other_project": "cypress open --config reporter=cypress-mochawesome-reporter --expose projectName=other_project",
-    "cy:parallel:helper:other_project": "cypress run --expose projectName=other_project",
-    "cy:run:parallel:other_project": "cypress-parallel -s cy:parallel:helper:other_project -t 4 -d cypress/e2e/other_project/**/*.cy.js"
+    "cy:run:all_chat_project:prod": "npm run cy:run:helper -- --expose projectName=all_chat_project,environment=prod --spec cypress/e2e/all_chat_project/**/*.cy.js",
+    "cy:run:ui:all_chat_project:prod": "cypress open --config reporter=cypress-mochawesome-reporter --expose projectName=all_chat_project,environment=prod",
+    "cy:parallel:helper:all_chat_project:prod": "cypress run --expose projectName=all_chat_project,environment=prod",
+    "cy:run:parallel:all_chat_project:prod": "cypress-parallel -s cy:parallel:helper:all_chat_project:prod -t 4 -d cypress/e2e/all_chat_project/**/*.cy.js",
+
+    "cy:run:other_project:prod": "npm run cy:run:helper -- --expose projectName=other_project,environment=prod --spec cypress/e2e/other_project/**/*.cy.js",
+    "cy:run:ui:other_project:prod": "cypress open --config reporter=cypress-mochawesome-reporter --expose projectName=other_project,environment=prod",
+    "cy:parallel:helper:other_project:prod": "cypress run --expose projectName=other_project --expose environment=prod",
+    "cy:run:parallel:other_project:prod": "cypress-parallel -s cy:parallel:helper:other_project:prod -t 4 -d cypress/e2e/other_project/**/*.cy.js",
+
+
+    
+    "cy:run:all_chat_project:staging": "npm run cy:run:helper -- --expose projectName=all_chat_project,environment=staging --spec cypress/e2e/all_chat_project/**/*.cy.js",
+    "cy:run:ui:all_chat_project:staging": "cypress open --config reporter=cypress-mochawesome-reporter --expose projectName=all_chat_project,environment=staging",
+    "cy:parallel:helper:all_chat_project:staging": "cypress run --expose projectName=all_chat_project,environment=staging",
+    "cy:run:parallel:all_chat_project:staging": "cypress-parallel -s cy:parallel:helper:all_chat_project:staging -t 4 -d cypress/e2e/all_chat_project/**/*.cy.js",
+
+    "cy:run:other_project:staging": "npm run cy:run:helper -- --expose projectName=other_project,environment=staging --spec cypress/e2e/other_project/**/*.cy.js",
+    "cy:run:ui:other_project:staging": "cypress open --config reporter=cypress-mochawesome-reporter --expose projectName=other_project,environment=staging",
+    "cy:parallel:helper:other_project:staging": "cypress run --expose projectName=other_project,environment=staging",
+    "cy:run:parallel:other_project:staging": "cypress-parallel -s cy:parallel:helper:other_project:staging -t 4 -d cypress/e2e/other_project/**/*.cy.js"
+
 
 
   },
