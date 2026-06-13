@@ -43,13 +43,13 @@ export const getOTPFromEmail = (action) => {
     login: emails_data.login_subject
   }
 
-  cy.task('getEmailBySubject', {
+  return cy.task('getEmailBySubject', {
     subject: emailsSubject[action],
     timeout: 20000,
     interval: 3000,
   })
     .then((email) => {
-      const otpPattern = /<div[^>]*id=["']verification_code["'][^>]*>([\s\S]*?)<\/div>/i;
+      const otpPattern = /<div[^>]*id=["'][^"']*verification_code[^"']*["'][^>]*>([\s\S]*?)<\/div>/i;
       const match = email.html.match(otpPattern);
       const otp = match ? match[1].trim() : null;
 
@@ -59,6 +59,6 @@ export const getOTPFromEmail = (action) => {
       expect(otp, 'OTP is null').to.not.be.null;
       cy.log(`OTP: ${otp}`);
 
-      return otp;
+      return cy.wrap(otp);
     });
 }

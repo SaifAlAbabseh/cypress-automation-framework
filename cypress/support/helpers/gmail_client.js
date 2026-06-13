@@ -39,6 +39,10 @@ class GmailClient {
       lastEmails = 10    // only check recent emails
     } = options;
 
+    // ⏳ Wait a fixed 5 seconds to ensure the new email has time to arrive,
+    // avoiding immediately matching a previous email with the same subject.
+    await new Promise(res => setTimeout(res, 5000));
+
     await this.connect();
 
     const start = Date.now();

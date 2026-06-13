@@ -1,6 +1,7 @@
 import testData from '../../fixtures/test_data/all_chat_test_data.json'
 import loginPage from '../../support/pages/all_chat_project/login_page'
 import mainPage from '../../support/pages/all_chat_project/main_page'
+import { getOTPFromEmail } from '../../support/helpers/main_helpers'
 
 const username = testData.username
 const password = testData.password
@@ -15,6 +16,10 @@ describe('Login Test Suite', () => {
         loginPage.typeInUsernameInputField(username)
         loginPage.typeInPasswordInputField(password)
         loginPage.clickOnLoginButton()
+        getOTPFromEmail('login').then((otpCode) => {
+            loginPage.fillOTP(otpCode);
+            loginPage.clickOnSubmitOTPButton();
+        });
         mainPage.handleMobileMenu(true)
         mainPage.verifyUsername(username)
     })

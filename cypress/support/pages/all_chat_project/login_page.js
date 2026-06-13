@@ -1,4 +1,5 @@
 import '../../commands';
+import { getOTPFromEmail } from '../../helpers/main_helpers'
 
 class LoginPage{
 
@@ -9,6 +10,8 @@ class LoginPage{
     signupSwitcherButton = "//button[contains(., 'Create an account')]";
     loginSwitcherButton = "//button[contains(., '< Go back to login')]";
     signupEmailField = '#signupemail_inputfield';
+    otpField = 'input[name=verification_code_field]';
+    submitOTPButton = 'input[name=login_verification_button]';
 
     get getPopupExitButton() { return cy.get(this.popupExitButton); }
     
@@ -23,6 +26,10 @@ class LoginPage{
     get getLoginSwitcherButton() { return cy.xpath(this.loginSwitcherButton); }
     
     get getSignupEmailField() { return cy.get(this.signupEmailField); }
+
+    get getOTPField() { return cy.get(this.otpField); }
+
+    get getSubmitOTPButton() { return cy.get(this.submitOTPButton); }
 
     verifyPageTitle(expectedTitle) {
         cy.title().should('eq', expectedTitle);
@@ -56,10 +63,22 @@ class LoginPage{
         this.getSignupEmailField.should('be.visible').type(email);
     }
 
+    fillOTP(otpCode) {
+        this.getOTPField.should('be.visible').type(otpCode);
+    }
+
+    clickOnSubmitOTPButton() {
+        this.getSubmitOTPButton.should('be.visible').click();
+    }
+
     login(username, password) {
         this.typeInUsernameInputField(username);
         this.typeInPasswordInputField(password);
         this.clickOnLoginButton();
+        getOTPFromEmail('login').then((otpCode) => {
+            this.fillOTP(otpCode);
+            this.clickOnSubmitOTPButton();
+        });
     }
 }
 
