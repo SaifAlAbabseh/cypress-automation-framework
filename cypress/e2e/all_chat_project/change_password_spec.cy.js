@@ -23,8 +23,6 @@ describe('Change Password Test Suite', () => {
         profilePage.typeNewPassword(newPassword)
         profilePage.typeConfirmNewPassword(newPassword)
         profilePage.submitNewPassword()
-        cy.on('window:alert', (alertText) => {
-            expect(alertText).to.equal('Successfully changed password :)')
-        })
+        cy.contains('Successfully changed password :)').should('be.visible')
     })
 })

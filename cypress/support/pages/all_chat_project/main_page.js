@@ -160,9 +160,7 @@ class MainPage {
     }
 
     verifyGroupHasBeenCreated(groupName) {
-        cy.on('window:alert', (alertText) => {
-            expect(alertText).to.equal(`Successfully created group: ${groupName}`)
-        })
+        cy.contains(`Successfully created group: ${groupName}`).should('be.visible')
         cy.xpath(this.groupRowByName.replace('{{text}}', groupName)).should('exist');
     }
 
