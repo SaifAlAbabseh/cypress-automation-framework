@@ -17,6 +17,12 @@ beforeEach(() => {
   const projectName = Cypress.expose('projectName');
   const env = Cypress.expose('environment');
   const baseUrl = projectBaseUrls[env][projectName];
+  
+  Cypress.expose('baseUrl', baseUrl);
 
-  cy.visit(baseUrl);
+  cy.session(`login-${projectName}-${env}`, () => {
+    cy.visit(baseUrl);
+    const authModule = require('./pages/' + projectName + '/auth/auth.js');
+    authModule.loginToSite();
+  });
 });

@@ -96,6 +96,9 @@ class MainPage {
         return cy.get(this.mobileViewMenuClosebutton);
     }
 
+    navigateToMainPage() {
+        cy.visit(`${Cypress.expose('baseUrl')}/Main/`);
+    }
 
     verifyUsername(username) {
         this.getUsernameLabel.should('be.visible').and('include.text', username);

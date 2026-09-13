@@ -12,15 +12,12 @@ const friendPassword = testData.friend_password
 describe('Add Friend Test Suite', () => {
 
     beforeEach(() => {
-        loginPage.clickOnPopUpExitButton()
+        mainPage.navigateToMainPage()
     })
 
     it('User Searches And Sends Friend Request To Friend', () => {
-        loginPage.login(username, password)
-        mainPage.getLoadingBox.should('not.be.visible')
         mainPage.doOperationOnFriendRowIfExists('Delete_Friend', friendUsername)
         mainPage.handleMobileMenu(true)
-        mainPage.verifyUsername(username)
         mainPage.clickOnAddNewFriendLink()
         addFriendPage.typeUsername(friendUsername)
         addFriendPage.verifySuggestionBox(friendUsername)

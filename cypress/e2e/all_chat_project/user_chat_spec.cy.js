@@ -13,11 +13,10 @@ const friendPassword = testData.friend_password
 describe('User Chat Test Suite', () => {
 
     beforeEach(() => {
-        loginPage.clickOnPopUpExitButton()
+        mainPage.navigateToMainPage()
     })
 
     it('User search and send friend request to friend', () => {
-        loginPage.login(username, password)
         mainPage.handleMobileMenu(true)
         mainPage.doOperationOnFriendRowIfExists('Delete_Friend', friendUsername)
         mainPage.clickOnAddNewFriendLink()
@@ -27,14 +26,12 @@ describe('User Chat Test Suite', () => {
     })
 
     it('User accepts friend request', () => {
-        loginPage.login(friendUsername, friendPassword)
         mainPage.handleMobileMenu(true)
         mainPage.clickOnNotificationsButton()
         mainPage.acceptFriendRequestFrom(username)
     })
 
     it('User chats with friend', () => {
-        loginPage.login(friendUsername, friendPassword)
         mainPage.handleMobileMenu(true)
         mainPage.doOperationOnFriendRowIfExists('Chat', username)
         const message = generateRandomString(20)

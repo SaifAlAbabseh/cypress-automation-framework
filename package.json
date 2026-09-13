@@ -44,5 +44,13 @@
     "cypress-xpath": "^2.0.1",
     "imap-simple": "^5.1.0",
     "mailparser": "^3.9.8"
+  },
+  "browser": {
+    "imap-simple": false,
+    "mailparser": false,
+    "node:events": false,
+    "node:fs": false,
+    "node:path": false,
+    "node:util": false
   }
 }
